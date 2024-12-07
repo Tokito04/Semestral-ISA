@@ -40,31 +40,77 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-6">Carrito de Compras</h1>
 
         <!-- Lista de Productos -->
-        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold text-gray-800">Vinilo Clásico</h2>
-                <p class="text-gray-600">$29.99</p>
-                <input
-                        type="number"
-                        min="1"
-                        value="1"
-                        class="w-16 px-2 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-            <!-- Producto adicional -->
+        <div id="cartItems" class="space-y-6 mb-8">
+            <!-- Productos añadidos se generarán aquí -->
         </div>
 
         <!-- Total y Botones -->
         <div class="flex justify-between items-center">
-            <p class="text-xl font-bold text-gray-800">Total: $59.98</p>
+            <p id="cartTotal" class="text-xl font-bold text-gray-800">Total: $0.00</p>
             <button
                     class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
                 Proceder al Pago
             </button>
         </div>
+
     </main>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
+<!-- Script -->
+<script>
+    function renderCartItems() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
 
+        cartItemsContainer.innerHTML = ''; // Limpiar contenido anterior
+
+        let total = 0;
+
+        cart.forEach((item) => {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+
+            const productHTML = `
+        <div class="bg-white shadow-md rounded-lg p-6 flex justify-between items-center">
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800">${item.name}</h2>
+            <p class="text-gray-600">$${item.price.toFixed(2)}</p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <input
+              type="number"
+              min="1"
+              value="${item.quantity}"
+              class="w-16 px-2 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onchange="updateQuantity(${item.id}, this.value)">
+            <p class="text-gray-800 font-semibold">$${subtotal.toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+            cartItemsContainer.innerHTML += productHTML;
+        });
+
+        cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function updateQuantity(productId, newQuantity) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const product = cart.find((item) => item.id === productId);
+
+        if (product) {
+            product.quantity = parseInt(newQuantity, 10);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCartItems();
+        }
+    }
+
+    // Renderizar al cargar la página
+    renderCartItems();
+</script>
+
+
+</body>
 <!-- Footer -->
 <footer id="Contacto" class="bg-gray-800 text-white py-6">
     <div class="container mx-auto flex justify-between">
@@ -75,6 +121,4 @@
         </ul>
     </div>
 </footer>
-
-</body>
 </html>

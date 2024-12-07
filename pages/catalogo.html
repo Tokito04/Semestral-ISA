@@ -54,10 +54,12 @@
           </span>
         <a href="#"
            class="block mt-4 px-4 py-2 bg-red-800 text-white text-center rounded-md hover:bg-red-600 verDetalles"
-           data-titulo="Vinilo Clásico"
+           data-titulo="The Tortured Poets Department"
            data-descripcion="Es el undécimo álbum de estudio de la cantautora estadounidense Taylor Swift,
                       lanzado el 19 de abril de 2024 a través de Republic Records."
-           data-imagen="../img/ttpd.jpg">
+           data-imagen="../img/ttpd.jpg"
+           data-id="1"
+           data-precio="34.99">
           Más Detalles
         </a>
       </div>
@@ -70,15 +72,21 @@
               alt="Producto 2"
               class="w-auto h-auto object-cover">
       <div class="p-4">
-        <h2 class="text-lg font-semibold text-gray-800">Vinilo Edición Limitada</h2>
+        <h2 class="text-lg font-semibold text-gray-800">Siembra 45 Aniversario</h2>
         <p class="text-gray-600">$39.99</p>
         <span class="inline-block bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full mt-2">
             Agotado
           </span>
-        <a href="/producto/detalles?id=2"
-           class="block mt-4 px-4 py-2 bg-gray-400 text-white text-center rounded-md cursor-not-allowed">
-          No Disponible
-        </a>
+        <button
+                data-id="2"
+                data-titulo="Siembra 45 Aniversario"
+                data-descripcion="Siembra es el segundo álbum realizado en conjunto por Willie Colón & Rubén Blades.
+                              Es considerado un clásico de la música salsa, el más vendido del sello Fania Records,
+                              y probablemente de la historia de este género, con más de 3 millones de discos vendidos en todo el mundo."
+                data-imagen="img/siembra.jpg"
+                data-precio="39.99"
+                class="mt-2 inline-block text-white verDetalles"
+        >No Disponible</button>
       </div>
     </div>
 
@@ -111,6 +119,27 @@
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <script>
+  // Función para añadir productos al carrito
+  function addToCart(id, name, price) {
+    // Obtener el carrito actual desde localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Verificar si el producto ya está en el carrito
+    const existingProduct = cart.find((item) => item.id === id);
+    if (existingProduct) {
+      existingProduct.quantity += 1; // Incrementar cantidad
+    } else {
+      cart.push({ id, name, price, quantity: 1 }); // Agregar nuevo producto
+    }
+
+    // Guardar el carrito actualizado en localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Confirmar acción al usuario
+    alert(`${name} se añadió al carrito.`);
+  }
+</script>
+<script>
   // Selección de elementos
   const modal = document.getElementById("detalleModal");
   const modalTitulo = document.getElementById("modalTitulo");
@@ -120,36 +149,45 @@
   const añadirCarrito = document.getElementById("añadirCarrito");
   const botonesDetalles = document.querySelectorAll(".verDetalles");
 
+  // Variable para almacenar datos del producto actual
+  let currentProduct = {};
+
   // Abrir modal y mostrar detalles del producto
   botonesDetalles.forEach(boton => {
     boton.addEventListener("click", function(event) {
       event.preventDefault();
 
-      // Establecer el título, descripción e imagen en el modal
-      modalTitulo.textContent = this.dataset.titulo;
-      modalDescripcion.textContent = this.dataset.descripcion;
-      modalImagen.src = this.dataset.imagen;  // Cambiar la imagen del modal
+      // Actualizar datos del producto actual
+      currentProduct = {
+        id: this.dataset.id, // Puedes añadir este atributo en el HTML
+        titulo: this.dataset.titulo,
+        descripcion: this.dataset.descripcion,
+        imagen: this.dataset.imagen,
+        precio: parseFloat(this.dataset.precio) // Asegurarte de pasar el precio como número
+      };
 
-      modal.classList.remove("hidden"); // Mostrar el modal
+      // Establecer el título, descripción e imagen en el modal
+      modalTitulo.textContent = currentProduct.titulo;
+      modalDescripcion.textContent = currentProduct.descripcion;
+      modalImagen.src = currentProduct.imagen;
+
+      // Mostrar el modal
+      modal.classList.remove("hidden");
     });
   });
-
-  // Cerrar el modal
   cerrarModal.addEventListener("click", () => {
-    modal.classList.add("hidden"); // Ocultar modal
-  });
-
-  // Cerrar modal al hacer clic fuera del contenido
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      modal.classList.add("hidden");
-    }
-  });
-
-  // Función de Añadir al carrito (esto es solo un ejemplo)
+    modal.classList.add("hidden");});
+  // Añadir al carrito
   añadirCarrito.addEventListener("click", () => {
-    alert("Producto añadido al carrito");
+    addToCart(
+            currentProduct.id,
+            currentProduct.titulo,
+            currentProduct.precio
+    );
+    modal.classList.add("hidden"); // Cerrar modal después de añadir al carrito
   });
+
+
 
 </script>
 
