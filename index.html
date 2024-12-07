@@ -13,33 +13,35 @@
     <div class="fondo_custom">
         <!-- Header -->
         <header class="bg-black shadow-md">
-          <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <a href="index.html">
-              <div class="container mx-auto flex items-center py-4 px-6">
-              <img class="logo" src="img/logo_vb.ico" alt="">
-              <h1 class="text-xl font-bold text-white">Volumen Brutal</h1>
+            <div class="container mx-auto flex justify-between items-center py-4 px-6">
+                <a href="index.html">
+                    <div class="container mx-auto flex items-center py-4 px-6">
+                        <img class="logo" src="img/logo_vb.ico" alt="">
+                        <h1 class="text-xl font-bold text-white">Volumen Brutal</h1>
+                    </div>
+                </a>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="index.html" class="text-white hover:bg-red-800 rounded-md">Inicio</a></li>
+                        <li><a href="pages/catalogo.html" class="text-white hover:bg-red-800 rounded-md">Catálogo</a></li>
+                        <li><a href="pages/preorden.html" class="text-white hover:bg-red-800 rounded-md">Pre-Órdenes</a></li>
+                        <li><a href="#Contacto" class="text-white hover:bg-red-800 rounded-md">Contacto</a></li>
+                    </ul>
+
+                </nav>
+                <a href="pages/carrito.html" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-shopping-cart"><img class="shopping-cart" src="img/shopping-cart-outline-svgrepo-com.svg" alt=""></i>
+                </a>
             </div>
-            </a>
-            <nav>
-              <ul class="flex space-x-4">
-                <li><a href="#" class="text-white hover:bg-red-800 rounded-md">Inicio</a></li>
-                <li><a href="#" class="text-white hover:bg-red-800 rounded-md">Catálogo</a></li>
-                <li><a href="#" class="text-white hover:bg-red-800 rounded-md">Pre-Órdenes</a></li>
-                <li><a href="#Contacto" class="text-white hover:bg-red-800 rounded-md">Contacto</a></li>
-              </ul>
-            </nav>
-            <a href="#" class="text-gray-600 hover:text-gray-800">
-              <i class="fas fa-shopping-cart"></i>
-            </a>
-          </div>
         </header>
+
       
         <!-- Hero Section -->
         <section class="bg-cover bg-center h-96" style="background-image: url('img/hero_image.jpg');">
           <div class="flex flex-col justify-center items-center h-full bg-black bg-opacity-50">
             <h2 class="text-white text-4xl font-bold mb-4">¡Descubre música que inspira!</h2>
             <p class="text-white text-lg mb-6">Vinilos, mercancía de tus artistas favoritos y más.</p>
-            <a href="#catalog" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">Explorar Catálogo</a>
+            <a href="pages/catalogo.html" class="px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-500">Explorar Catálogo</a>
           </div>
         </section>
       
@@ -53,7 +55,8 @@
               <div class="mt-4">
                 <h4 class="text-lg font-bold text-gray-800">The Tortured Poets Department</h4>
                 <p class="text-gray-600">Descubre los mejores vinilos a precios increíbles.</p>
-                  <a href="#" data-titulo="Vinilo Clásico"
+                  <a href="#"
+                     data-titulo="The Tortured Poets Department"
                      data-descripcion="Es el undécimo álbum de estudio de la cantautora estadounidense Taylor Swift,
                       lanzado el 19 de abril de 2024 a través de Republic Records."
                      data-imagen="img/ttpd.jpg"
@@ -67,14 +70,14 @@
 
               <!--Vinilo 2-->
               <div class="bg-white shadow-md rounded-md p-4">
-                  <img src="img/vinilo.png" alt="Producto" class="w-auto h-auto object-cover rounded-t-md">
+                  <img src="img/siembra.jpg" alt="Producto" class="w-auto h-auto object-cover rounded-t-md">
                   <div class="mt-4">
-                      <h4 class="text-lg font-bold text-gray-800">Vinilo Rubén</h4>
+                      <h4 class="text-lg font-bold text-gray-800">Siembra 45 Aniversario</h4>
                       <p class="text-gray-600">Descubre los mejores vinilos a precios increíbles.</p>
                       <a href="#"
-                         data-titulo="Vinilo Rubén"
+                         data-titulo="Siembra 45 Aniversario"
                          data-descripcion="Vinilo clásico con diseño único y excelente calidad."
-                         data-imagen="img/vinilo.png"
+                         data-imagen="img/siembra.jpg"
                          class="mt-2 inline-block text-blue-600 hover:underline verDetalles">
                           Más Detalles
                       </a>
@@ -100,7 +103,7 @@
                 </button>
 
                 <!-- Botón Cerrar Modal -->
-                <button class="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" id="cerrarModal">
+                <button class="mt-2 bg-red-800 text-white py-2 px-4 rounded hover:bg-red-600" id="cerrarModal">
                     Cerrar
                 </button>
             </div>

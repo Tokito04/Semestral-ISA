@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo</title>
+  <link rel="stylesheet" href="../css/tailwind.css">
+  <link rel="stylesheet" href="../css/estilos.css">
+  <link rel="shortcut icon" href="../img/logo_vb.ico" type="image/x-icon">
+</head>
+<body>
+<div class="fondo_custom">
+  <!-- Header -->
+  <header class="bg-black shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <a href="../index.html">
+        <div class="container mx-auto flex items-center py-4 px-6">
+          <img class="logo" src="../img/logo_vb.ico" alt="">
+          <h1 class="text-xl font-bold text-white">Volumen Brutal</h1>
+        </div>
+      </a>
+      <nav>
+        <ul class="flex space-x-4">
+          <li><a href="../index.html" class="text-white hover:bg-red-800 rounded-md">Inicio</a></li>
+          <li><a href="catalogo.html" class="text-white hover:bg-red-800 rounded-md">Catálogo</a></li>
+          <li><a href="preorden.html" class="text-white hover:bg-red-800 rounded-md">Pre-Órdenes</a></li>
+          <li><a href="#Contacto" class="text-white hover:bg-red-800 rounded-md">Contacto</a></li>
+        </ul>
+
+      </nav>
+      <a href="carrito.html" class="text-gray-600 hover:text-gray-800">
+        <i class="fas fa-shopping-cart"><img class="shopping-cart" src="../img/shopping-cart-outline-svgrepo-com.svg" alt=""></i>
+      </a>
+    </div>
+  </header>
+
+<!--Sección principal de la página-->
+<main class="container mx-auto py-12 ">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Catálogo de Productos</h1>
+
+  <!-- Grid de Productos -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Tarjeta de Producto -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <img
+              src="../img/ttpd.jpg"
+              alt="Producto 1"
+              class="w-auto h-auto object-cover rounded-t-md">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">The Tortured Poets Department</h2>
+        <p class="text-gray-600">$34.99</p>
+        <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full mt-2">
+            Disponible
+          </span>
+        <a href="#"
+           class="block mt-4 px-4 py-2 bg-red-800 text-white text-center rounded-md hover:bg-red-600 verDetalles"
+           data-titulo="Vinilo Clásico"
+           data-descripcion="Es el undécimo álbum de estudio de la cantautora estadounidense Taylor Swift,
+                      lanzado el 19 de abril de 2024 a través de Republic Records."
+           data-imagen="../img/ttpd.jpg">
+          Más Detalles
+        </a>
+      </div>
+    </div>
+
+    <!-- Tarjeta de Producto Agotado -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <img
+              src="../img/siembra.jpg"
+              alt="Producto 2"
+              class="w-auto h-auto object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">Vinilo Edición Limitada</h2>
+        <p class="text-gray-600">$39.99</p>
+        <span class="inline-block bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-full mt-2">
+            Agotado
+          </span>
+        <a href="/producto/detalles?id=2"
+           class="block mt-4 px-4 py-2 bg-gray-400 text-white text-center rounded-md cursor-not-allowed">
+          No Disponible
+        </a>
+      </div>
+    </div>
+
+    <!-- Más tarjetas según el catálogo -->
+  </div>
+</main>
+
+
+<!-- Modal -->
+<div id="detalleModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white rounded-lg p-6 w-96">
+    <!-- Imagen del Producto -->
+    <img id="modalImagen" src="../img/vinilo.png" alt="Producto" class="w-full h-48 object-cover rounded-t-md">
+
+    <!-- Título y Descripción -->
+    <h3 class="text-lg font-bold text-gray-800 mt-4" id="modalTitulo">Vinilo Clásico</h3>
+    <p class="text-gray-600 mt-2" id="modalDescripcion">Aquí aparecerán los detalles del producto seleccionado.</p>
+
+    <!-- Botón Añadir al carrito -->
+    <button class="mt-4 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700" id="añadirCarrito">
+      Añadir al Carrito
+    </button>
+
+    <!-- Botón Cerrar Modal -->
+    <button class="mt-2 bg-red-800 text-white py-2 px-4 rounded hover:bg-red-600" id="cerrarModal">
+      Cerrar
+    </button>
+  </div>
+</div>>
+
+</div>
+<script>
+  // Selección de elementos
+  const modal = document.getElementById("detalleModal");
+  const modalTitulo = document.getElementById("modalTitulo");
+  const modalDescripcion = document.getElementById("modalDescripcion");
+  const modalImagen = document.getElementById("modalImagen");
+  const cerrarModal = document.getElementById("cerrarModal");
+  const añadirCarrito = document.getElementById("añadirCarrito");
+  const botonesDetalles = document.querySelectorAll(".verDetalles");
+
+  // Abrir modal y mostrar detalles del producto
+  botonesDetalles.forEach(boton => {
+    boton.addEventListener("click", function(event) {
+      event.preventDefault();
+
+      // Establecer el título, descripción e imagen en el modal
+      modalTitulo.textContent = this.dataset.titulo;
+      modalDescripcion.textContent = this.dataset.descripcion;
+      modalImagen.src = this.dataset.imagen;  // Cambiar la imagen del modal
+
+      modal.classList.remove("hidden"); // Mostrar el modal
+    });
+  });
+
+  // Cerrar el modal
+  cerrarModal.addEventListener("click", () => {
+    modal.classList.add("hidden"); // Ocultar modal
+  });
+
+  // Cerrar modal al hacer clic fuera del contenido
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+
+  // Función de Añadir al carrito (esto es solo un ejemplo)
+  añadirCarrito.addEventListener("click", () => {
+    alert("Producto añadido al carrito");
+  });
+
+</script>
+
+
+</body>
+<footer id="Contacto" class="bg-gray-800 text-white py-6">
+  <div class="container mx-auto flex justify-between">
+    <p>&copy; 2024 Volumen Brutal. Todos los derechos reservados.</p>
+    <ul class="flex space-x-4">
+      <li><a href="https://www.instagram.com/tiendavolumenbrutal/?hl=es" class="hover:underline" target="_blank">Instagram</a></li>
+      <li><a href="https://wa.me/50766748927" class="hover:underline" target="_blank">WhatsApp</a></li>
+    </ul>
+  </div>
+</footer>
+</html>
